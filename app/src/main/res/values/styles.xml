@@ -1,0 +1,93 @@
+<resources>
+    <!-- Typography System -->
+    <style name="TextAppearance_Lumora_Hero" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance_Lumora_ScreenTitle" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance_Lumora_SectionTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance_Lumora_Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance_Lumora_BodySecondary" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance_Lumora_Caption" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance_Lumora_Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="Widget_Lumora_Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/radius_large</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Widget_Lumora_HeroCard" parent="Widget_Lumora_Card">
+        <item name="cardCornerRadius">@dimen/radius_extra_large</item>
+        <item name="cardBackgroundColor">?attr/colorPrimary</item>
+        <item name="cardElevation">6dp</item>
+    </style>
+
+    <style name="Widget_Lumora_ToolCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/radius_large</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="Widget_Lumora_Button_Primary" parent="Widget.Material3.Button">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_Lumora_Button</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">56dp</item>
+    </style>
+
+    <style name="Widget_Lumora_Button_Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_Lumora_Button</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Widget_Lumora_Button_Text" parent="Widget.Material3.Button.TextButton">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance_Lumora_Button</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="ShapeAppearance_Lumora_Button" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/radius_large</item>
+    </style>
+
+    <!-- States & Feedback -->
+    <style name="Widget_Lumora_EmptyStateContainer">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/spacing_32</item>
+    </style>
+
+    <style name="Widget_Lumora_Loading">
+        <item name="android:indeterminateTint">?attr/colorPrimary</item>
+    </style>
+</resources>

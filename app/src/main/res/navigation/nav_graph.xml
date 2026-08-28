@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/onboardingFragment">
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="uz.kmax.documents.presentation.onboarding.OnboardingFragment"
+        android:label="Onboarding"
+        tools:layout="@layout/fragment_onboarding" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="uz.kmax.documents.presentation.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="uz.kmax.documents.presentation.scanner.ScannerFragment"
+        android:label="Scanner"
+        tools:layout="@layout/fragment_scanner" />
+
+    <fragment
+        android:id="@+id/documentsFragment"
+        android:name="uz.kmax.documents.presentation.documents.DocumentsFragment"
+        android:label="Documents"
+        tools:layout="@layout/fragment_documents" />
+
+    <fragment
+        android:id="@+id/pdfFragment"
+        android:name="uz.kmax.documents.presentation.pdf.PdfFragment"
+        android:label="PDF"
+        tools:layout="@layout/fragment_pdf" />
+
+    <fragment
+        android:id="@+id/aiFragment"
+        android:name="uz.kmax.documents.presentation.ai.AiFragment"
+        android:label="AI"
+        tools:layout="@layout/fragment_ai" />
+
+    <fragment
+        android:id="@+id/imagePreviewFragment"
+        android:name="uz.kmax.documents.presentation.scanner.ImagePreviewFragment"
+        android:label="Image Preview"
+        tools:layout="@layout/fragment_image_preview">
+        <argument
+            android:name="imagePath"
+            app:argType="string" />
+        <argument
+            android:name="corners"
+            android:defaultValue="@null"
+            app:argType="float[]"
+            app:nullable="true" />
+        <argument
+            android:name="originalWidth"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="originalHeight"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cropEditorFragment"
+        android:name="uz.kmax.documents.presentation.scanner.CropEditorFragment"
+        android:label="Crop Editor"
+        tools:layout="@layout/fragment_crop_editor">
+        <argument
+            android:name="imagePath"
+            app:argType="string" />
+        <argument
+            android:name="corners"
+            android:defaultValue="@null"
+            app:argType="float[]"
+            app:nullable="true" />
+        <argument
+            android:name="originalWidth"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="originalHeight"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/documentDetailFragment"
+        android:name="uz.kmax.documents.presentation.documents.DocumentDetailFragment"
+        android:label="Document Detail"
+        tools:layout="@layout/fragment_document_detail">
+        <argument
+            android:name="documentId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/enhancementFragment"
+        android:name="uz.kmax.documents.presentation.documents.EnhancementFragment"
+        android:label="Enhance"
+        tools:layout="@layout/fragment_enhancement">
+        <argument
+            android:name="documentId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ocrFragment"
+        android:name="uz.kmax.documents.presentation.ocr.OcrFragment"
+        android:label="OCR"
+        tools:layout="@layout/fragment_ocr">
+        <argument
+            android:name="documentId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="uz.kmax.documents.presentation.scanner.ReviewFragment"
+        android:label="Review"
+        tools:layout="@layout/fragment_review" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="uz.kmax.documents.presentation.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/premiumFragment"
+        android:name="uz.kmax.documents.presentation.premium.PremiumFragment"
+        android:label="Premium"
+        tools:layout="@layout/fragment_premium" />
+
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="uz.kmax.documents.presentation.ai.SummaryFragment"
+        android:label="AI Summary"
+        tools:layout="@layout/fragment_summary">
+        <argument
+            android:name="documentId"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

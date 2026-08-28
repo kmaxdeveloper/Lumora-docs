@@ -1,0 +1,26 @@
+<resources>
+    <!-- Brand Colors (Night) -->
+    <color name="primary">#A5B4FC</color>
+    <color name="onPrimary">#1E1B4B</color>
+    <color name="primaryContainer">#312E81</color>
+    <color name="onPrimaryContainer">#E0E7FF</color>
+
+    <color name="secondary">#94A3B8</color>
+    <color name="onSecondary">#0F172A</color>
+
+    <!-- Surfaces (Night) -->
+    <color name="background">#0F172A</color>
+    <color name="onBackground">#F1F5F9</color>
+    <color name="surface">#1E293B</color>
+    <color name="onSurface">#F1F5F9</color>
+    <color name="surfaceVariant">#334155</color>
+    <color name="onSurfaceVariant">#94A3B8</color>
+    <color name="outline">#475569</color>
+    <color name="outlineVariant">#334155</color>
+
+    <!-- Feature Specific (Night - more muted) -->
+    <color name="tool_ocr_bg">#134E4A</color>
+    <color name="tool_ocr_content">#5EEAD4</color>
+    <color name="tool_pdf_bg">#7C2D12</color>
+    <color name="tool_pdf_content">#FDBA74</color>
+</resources>

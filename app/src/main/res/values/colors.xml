@@ -1,0 +1,53 @@
+<resources>
+    <!-- Brand Colors - Premium Indigo & Deep Slate (USA/EU Pro Look) -->
+    <color name="primary">#0F172A</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryContainer">#EEF2FF</color>
+    <color name="onPrimaryContainer">#1E1B4B</color>
+
+    <color name="secondary">#334155</color>
+    <color name="onSecondary">#FFFFFF</color>
+    <color name="secondaryContainer">#F1F5F9</color>
+    <color name="onSecondaryContainer">#0F172A</color>
+
+    <!-- Accent - Electric Indigo / Pro Sapphire Blue -->
+    <color name="accent">#2563EB</color>
+    <color name="accentLight">#3B82F6</color>
+    <color name="accentContainer">#DBEAFE</color>
+    <color name="onAccent">#FFFFFF</color>
+
+    <!-- Neutral Surfaces (Refined Clean Canvas) -->
+    <color name="background">#F8FAFC</color>
+    <color name="onBackground">#0F172A</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="onSurface">#0F172A</color>
+    <color name="surfaceVariant">#F1F5F9</color>
+    <color name="onSurfaceVariant">#475569</color>
+    <color name="outline">#E2E8F0</color>
+    <color name="outlineVariant">#F1F5F9</color>
+
+    <!-- Semantic Colors -->
+    <color name="error">#EF4444</color>
+    <color name="onError">#FFFFFF</color>
+    <color name="success">#10B981</color>
+    <color name="onSuccess">#FFFFFF</color>
+    <color name="gold">#F59E0B</color>
+    <color name="goldLight">#FEF3C7</color>
+
+    <!-- Badges & Tools -->
+    <color name="badge_pdf_bg">#FEF2F2</color>
+    <color name="badge_pdf_text">#DC2626</color>
+    <color name="badge_ocr_bg">#F0FDF4</color>
+    <color name="badge_ocr_text">#16A34A</color>
+
+    <color name="tool_ocr_bg">@color/badge_ocr_bg</color>
+    <color name="tool_ocr_content">@color/badge_ocr_text</color>
+    <color name="tool_pdf_bg">@color/badge_pdf_bg</color>
+    <color name="tool_pdf_content">@color/badge_pdf_text</color>
+
+    <!-- Utility -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="scrim">#99000000</color>
+</resources>
