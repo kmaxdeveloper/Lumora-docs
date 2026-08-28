@@ -18,13 +18,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import coil.load
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 import uz.kmax.base.fragment.BaseFragmentNV
 import uz.kmax.documents.LumoraApplication
 import uz.kmax.documents.R
 import uz.kmax.documents.databinding.FragmentReviewBinding
 import uz.kmax.documents.databinding.ItemPageReviewBinding
+import uz.kmax.documents.utils.DialogUtils
 import uz.kmax.documents.utils.ViewModelFactory
 import java.io.File
 
@@ -91,7 +91,11 @@ class ReviewFragment : BaseFragmentNV<FragmentReviewBinding>(FragmentReviewBindi
         }
 
         binding.btnAddPage.setOnClickListener {
-            showAddPageOptions()
+            if (sessionViewModel.canAddMorePages()) {
+                showAddPageOptions()
+            } else {
+                showPremiumLimitDialog()
+            }
         }
 
         binding.btnDone.setOnClickListener {
@@ -99,28 +103,56 @@ class ReviewFragment : BaseFragmentNV<FragmentReviewBinding>(FragmentReviewBindi
         }
     }
 
+    private fun showPremiumLimitDialog() {
+        DialogUtils.showLumoraDialog(
+            requireContext(),
+            title = getString(R.string.premium_limit_pages_title),
+            message = getString(R.string.premium_limit_pages_msg),
+            iconRes = R.drawable.ic_premium,
+            primaryButtonText = getString(R.string.premium_btn_upgrade),
+            secondaryButtonText = getString(R.string.scanner_btn_reset),
+            onPrimaryClick = {
+                navController.navigate(R.id.premiumFragment)
+            }
+        )
+    }
+
     private fun showAddPageOptions() {
         val options = arrayOf(
             getString(R.string.scanner_option_scan),
             getString(R.string.scanner_option_gallery)
         )
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.scanner_btn_add_page)
-            .setItems(options) { _, which ->
-                when (which) {
-                    0 -> navController.popBackStack(R.id.scannerFragment, false)
-                    1 -> pickMoreMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                }
+        
+        DialogUtils.showLumoraSingleChoiceDialog(
+            requireContext(),
+            title = getString(R.string.scanner_btn_add_page),
+            choices = options,
+            checkedItem = -1
+        ) { which ->
+            when (which) {
+                0 -> navController.popBackStack(R.id.scannerFragment, false)
+                1 -> pickMoreMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
             }
-            .show()
+        }
     }
 
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sessionViewModel.pages.collect { pages ->
+                kotlinx.coroutines.flow.combine(
+                    sessionViewModel.pages,
+                    sessionViewModel.isPremium
+                ) { pages, isPremium ->
+                    pages to isPremium
+                }.collect { (pages, isPremium) ->
                     adapter.submitList(pages)
-                    binding.tvPageCount.text = resources.getQuantityString(R.plurals.pages_count, pages.size, pages.size)
+                    val countText = resources.getQuantityString(R.plurals.pages_count, pages.size, pages.size)
+                    
+                    if (isPremium) {
+                        binding.tvPageCount.text = countText
+                    } else {
+                        binding.tvPageCount.text = getString(R.string.review_page_limit_indicator, countText)
+                    }
                 }
             }
         }

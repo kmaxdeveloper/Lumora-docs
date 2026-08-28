@@ -343,62 +343,7 @@
                 android:layout_marginHorizontal="@dimen/spacing_20"
                 android:background="?attr/colorOutlineVariant" />
 
-            <!-- DEVELOPER / TEST OPTIONS -->
-            <LinearLayout
-                android:id="@+id/layoutDebugOptions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/spacing_20"
-                    android:layout_marginTop="@dimen/spacing_32"
-                    android:text="MONETIZATION &amp; NO-ADS TEST"
-                    android:textAppearance="@style/TextAppearance_Lumora_Caption"
-                    android:textColor="?attr/colorPrimary"
-                    android:textStyle="bold"
-                    android:accessibilityHeading="true" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_8"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/spacing_20"
-                    android:paddingVertical="@dimen/spacing_16">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Simulate No-Ads (Test Mode)"
-                            android:textAppearance="@style/TextAppearance_Lumora_Body" />
-
-                        <TextView
-                            android:id="@+id/tvNoAdsTestStatus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="Disable all ads for live testing"
-                            android:textAppearance="@style/TextAppearance_Lumora_BodySecondary" />
-                    </LinearLayout>
-
-                    <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchNoAdsTest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

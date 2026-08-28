@@ -7,29 +7,44 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import uz.kmax.documents.domain.model.Document
+import uz.kmax.documents.domain.model.PremiumEntitlement
 import uz.kmax.documents.domain.repository.DocumentRepository
+import uz.kmax.documents.domain.repository.BillingRepository
 import uz.kmax.documents.utils.BitmapUtils
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
 
 class ScanSessionViewModel(
-    private val repository: DocumentRepository
+    private val repository: DocumentRepository,
+    private val billingRepository: BillingRepository
 ) : ViewModel() {
 
     private val _pages = MutableStateFlow<List<String>>(emptyList())
     val pages: StateFlow<List<String>> = _pages.asStateFlow()
+
+    val isPremium: StateFlow<Boolean> = billingRepository.entitlement
+        .map { it == PremiumEntitlement.PREMIUM }
+        .stateIn(viewModelScope, SharingStarted.Lazily, false)
 
     private val _importState = MutableStateFlow<ImportState>(ImportState.Idle)
     val importState: StateFlow<ImportState> = _importState.asStateFlow()
 
     private val _saveState = MutableStateFlow<SaveState>(SaveState.Idle)
     val saveState: StateFlow<SaveState> = _saveState.asStateFlow()
+
+    fun canAddMorePages(): Boolean {
+        if (isPremium.value) return true
+        return _pages.value.size < 10
+    }
 
     private var sessionCacheDir: File? = null
 
@@ -68,11 +83,22 @@ class ScanSessionViewModel(
     fun importImages(context: Context, uris: List<Uri>) {
         if (uris.isEmpty()) return
         
-        _importState.value = ImportState.Loading(0, uris.size)
+        val currentCount = _pages.value.size
+        val maxAllowed = if (isPremium.value) Int.MAX_VALUE else 10
+        val remaining = maxAllowed - currentCount
+
+        if (remaining <= 0) {
+            _importState.value = ImportState.Error("Limit reached")
+            return
+        }
+
+        val limitedUris = uris.take(remaining)
+        
+        _importState.value = ImportState.Loading(0, limitedUris.size)
         viewModelScope.launch {
             val paths = mutableListOf<String>()
-            uris.forEachIndexed { index, uri ->
-                _importState.value = ImportState.Loading(index + 1, uris.size)
+            limitedUris.forEachIndexed { index, uri ->
+                _importState.value = ImportState.Loading(index + 1, limitedUris.size)
                 val bitmap = BitmapUtils.decodeUri(context, uri)
                 if (bitmap != null) {
                     val path = withContext(Dispatchers.IO) {
@@ -91,7 +117,11 @@ class ScanSessionViewModel(
                 }
             }
             _pages.value += paths
-            _importState.value = ImportState.Success
+            _importState.value = if (limitedUris.size < uris.size) {
+                ImportState.Error("Some images were skipped due to the 10-page limit.")
+            } else {
+                ImportState.Success
+            }
         }
     }
 

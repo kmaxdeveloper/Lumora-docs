@@ -13,7 +13,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import kotlinx.coroutines.launch
 import uz.kmax.base.fragment.BaseFragmentNV
-import uz.kmax.documents.BuildConfig
 import uz.kmax.documents.LumoraApplication
 import uz.kmax.documents.R
 import uz.kmax.documents.databinding.FragmentSettingsBinding
@@ -37,11 +36,6 @@ class SettingsFragment : BaseFragmentNV<FragmentSettingsBinding>(FragmentSetting
         setupEdgeToEdge()
         observeViewModel()
         displayAppInfo()
-        setupDebugOptions()
-    }
-
-    private fun setupDebugOptions() {
-        binding.layoutDebugOptions.visibility = if (BuildConfig.DEBUG) View.VISIBLE else View.GONE
     }
 
     private fun setupEdgeToEdge() {
@@ -74,15 +68,6 @@ class SettingsFragment : BaseFragmentNV<FragmentSettingsBinding>(FragmentSetting
         binding.rowPremium.setOnClickListener {
             navController.navigate(R.id.premiumFragment)
         }
-
-        binding.switchNoAdsTest.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.setDebugNoAds(isChecked)
-            Toast.makeText(
-                requireContext(),
-                if (isChecked) "No-Ads test mode ENABLED (All ads hidden)" else "No-Ads test mode DISABLED (Ads active)",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
     }
 
     private fun observeViewModel() {
@@ -106,11 +91,6 @@ class SettingsFragment : BaseFragmentNV<FragmentSettingsBinding>(FragmentSetting
                     )
                     binding.ivPremiumChevron.visibility = if (isPremium) View.GONE else View.VISIBLE
                     binding.ivPremiumIcon.setImageResource(if (isPremium) R.drawable.ic_check else R.drawable.ic_premium)
-
-                    if (binding.switchNoAdsTest.isChecked != isPremium) {
-                        binding.switchNoAdsTest.isChecked = isPremium
-                    }
-                    binding.tvNoAdsTestStatus.text = if (isPremium) "All ads DISABLED (No-Ads active)" else "Ads ACTIVE (Free tier)"
                 }
             }
         }

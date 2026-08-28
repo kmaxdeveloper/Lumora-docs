@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import uz.kmax.documents.data.local.PreferenceManager
-import uz.kmax.documents.domain.model.PremiumEntitlement
 import uz.kmax.documents.domain.repository.DocumentRepository
 import uz.kmax.documents.domain.repository.BillingRepository
 import java.io.File
@@ -19,16 +18,10 @@ import java.io.File
 class SettingsViewModel(
     private val repository: DocumentRepository,
     private val preferenceManager: PreferenceManager,
-    private val billingRepository: BillingRepository
+    billingRepository: BillingRepository
 ) : ViewModel() {
 
     val entitlement = billingRepository.entitlement
-
-    fun setDebugNoAds(enabled: Boolean) {
-        billingRepository.setDebugEntitlementOverride(
-            if (enabled) PremiumEntitlement.PREMIUM else null
-        )
-    }
 
     private val _storageInfo = MutableStateFlow<StorageInfo>(StorageInfo())
     val storageInfo: StateFlow<StorageInfo> = _storageInfo.asStateFlow()

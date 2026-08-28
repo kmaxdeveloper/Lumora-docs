@@ -44,7 +44,7 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(ScanSessionViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")
-                ScanSessionViewModel(repository) as T
+                ScanSessionViewModel(repository, billingRepository!!) as T
             }
             modelClass.isAssignableFrom(DocumentsViewModel::class.java) -> {
                 @Suppress("UNCHECKED_CAST")

@@ -127,7 +127,11 @@ class ScannerFragment : BaseFragmentNV<FragmentScannerBinding>(FragmentScannerBi
         }
 
         binding.btnCapture.setOnClickListener {
-            captureImage()
+            if (sessionViewModel.canAddMorePages()) {
+                captureImage()
+            } else {
+                showPremiumLimitDialog()
+            }
         }
 
         binding.btnGallery.setOnClickListener {
@@ -143,6 +147,20 @@ class ScannerFragment : BaseFragmentNV<FragmentScannerBinding>(FragmentScannerBi
                 navController.navigate(R.id.reviewFragment)
             }
         }
+    }
+
+    private fun showPremiumLimitDialog() {
+        uz.kmax.documents.utils.DialogUtils.showLumoraDialog(
+            requireContext(),
+            title = getString(R.string.premium_limit_pages_title),
+            message = getString(R.string.premium_limit_pages_msg),
+            iconRes = R.drawable.ic_premium,
+            primaryButtonText = getString(R.string.premium_btn_upgrade),
+            secondaryButtonText = getString(R.string.scanner_btn_reset),
+            onPrimaryClick = {
+                navController.navigate(R.id.premiumFragment)
+            }
+        )
     }
 
     private fun observeViewModel() {
@@ -191,7 +209,13 @@ class ScannerFragment : BaseFragmentNV<FragmentScannerBinding>(FragmentScannerBi
                     updateStabilityUi(stability)
                     detectionOverlay.setDetectionResult(viewModel.detectionState.value, stability == StabilityResult.STABLE)
                     if (stability == StabilityResult.STABLE && viewModel.uiState.value == ScannerUiState.Idle) {
-                        captureImage()
+                        if (sessionViewModel.canAddMorePages()) {
+                            captureImage()
+                        } else {
+                            // Don't auto-show dialog during scan, just stop auto-capture
+                            // User will get dialog when clicking capture button manually
+                            viewModel.onStabilityEvaluated(StabilityResult.NOT_DETECTED)
+                        }
                     }
                 }
             }
@@ -199,9 +223,19 @@ class ScannerFragment : BaseFragmentNV<FragmentScannerBinding>(FragmentScannerBi
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sessionViewModel.pages.collect { pages ->
+                kotlinx.coroutines.flow.combine(
+                    sessionViewModel.pages,
+                    sessionViewModel.isPremium
+                ) { pages, isPremium ->
+                    pages to isPremium
+                }.collect { (pages, isPremium) ->
                     binding.tvPageCount.visibility = if (pages.isNotEmpty()) View.VISIBLE else View.GONE
-                    binding.tvPageCount.text = pages.size.toString()
+                    
+                    if (isPremium) {
+                        binding.tvPageCount.text = pages.size.toString()
+                    } else {
+                        binding.tvPageCount.text = getString(R.string.scanner_page_limit_indicator, pages.size, 10)
+                    }
                 }
             }
         }

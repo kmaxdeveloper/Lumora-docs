@@ -220,6 +220,10 @@
     <string name="premium_limit_ocr_msg">Free daily OCR limit reached. Upgrade to Premium for unlimited extraction.</string>
     <string name="premium_limit_bulk_title">Premium Feature</string>
     <string name="premium_limit_bulk_msg">Bulk actions are available for Premium users.</string>
+    <string name="premium_limit_pages_title">Page Limit Reached</string>
+    <string name="premium_limit_pages_msg">Free users can scan up to 10 pages per document. Upgrade to Premium for unlimited pages.</string>
+    <string name="scanner_page_limit_indicator">%1$d / %2$d</string>
+    <string name="review_page_limit_indicator">%1$s (Max 10)</string>
     <string name="premium_btn_upgrade">Upgrade</string>
     <string name="premium_best_value">BEST VALUE</string>
     <string name="enhance_msg_success">Enhancement applied</string>
